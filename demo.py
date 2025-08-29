@@ -10,7 +10,6 @@ from torchvision import transforms
 from PIL import Image, ImageOps
 import random
 import time
-import tqdm
 
 warnings.filterwarnings("ignore")
 
