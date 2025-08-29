@@ -10,6 +10,7 @@ from torchvision import transforms
 from PIL import Image, ImageOps
 import random
 import time
+import tqdm
 
 warnings.filterwarnings("ignore")
 
@@ -67,7 +68,7 @@ def evaluate_on_images(model, input_path, output_dir):
         image_files = [os.path.join(input_path, f) for f in os.listdir(input_path) if f.endswith(('jpg', 'png'))]
 
     start = time.time()
-    for image_file in image_files:
+    for image_file in tqdm(image_files, smoothing=0):
         image = Image.open(image_file).convert('RGB')
         width, height = image.size
         im = preprocess_image(image, keep_aspect_ratio)
@@ -86,7 +87,7 @@ def evaluate_on_images(model, input_path, output_dir):
         res_path = os.path.join(output_dir, os.path.basename(image_file))
         cropped_img.save(res_path)
         cost_time = time.time() - start
-        print('cost time: {:.2f}s, cropped image saved to {}'.format(cost_time, res_path))
+        #print('cost time: {:.2f}s, cropped image saved to {}'.format(cost_time, res_path))
 
 if __name__ == '__main__':
     args = parse_arguments()
